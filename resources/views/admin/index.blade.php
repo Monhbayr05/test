@@ -11,6 +11,7 @@
             <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-10">Тайлбар</th>
             <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-10">Created at</th>
             <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-10">Updated at</th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-10">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -23,6 +24,16 @@
                 <td>{{ $item->description }}</td>
                 <td>{{ $item->created_at }}</td>
                 <td>{{ $item->updated_at }}</td>
+                <td>
+                    <form action="{{ route('destroy', $item->id) }}" method="POST"
+                         onsubmit="return confirm('Устгахдаа итгэлтэй байна уу?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-primary float-end">
+                            delete
+                        </button>
+                    </form>
+                </td>
             </tr>
         @endforeach
         </tbody>

@@ -34,4 +34,10 @@ class PageContoller extends Controller
         return redirect()->route('index')
             ->with('success','Product created successfully');
     }
+    public function destroy($id){
+        $products = Product::query()->find($id);
+        $products->delete();
+
+        return redirect()->route('index')->with('messsage','Product Deleted Successfully');
+    }
 }
