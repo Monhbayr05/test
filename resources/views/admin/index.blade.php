@@ -9,6 +9,7 @@
             <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-10">Товчлол</th>
             <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-10">Үнэ</th>
             <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-10">Тайлбар</th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-10">Зураг</th>
             <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-10">Created at</th>
             <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-10">Updated at</th>
             <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-10">Action</th>
@@ -22,6 +23,9 @@
                 <td>{{ $item->slug }}</td>
                 <td>{{ $item->price }}</td>
                 <td>{{ $item->description }}</td>
+                <td>
+                    <img src="{{ asset($item->image) }}" width="150px" alt="image">
+                </td>
                 <td>{{ $item->created_at }}</td>
                 <td>{{ $item->updated_at }}</td>
                 <td>

@@ -11,11 +11,7 @@
     <div class="container">
         <div class="row">
             <div class="col-3">
-                <a href=""></a>
-            </div>
-
-            <div class="col-3">
-                <a href=""></a>
+                <a href="{{ route('index') }}" class="btn btn-primary">Product</a>
             </div>
         </div>
     </div>
