@@ -49,9 +49,55 @@ class PageContoller extends Controller
         return redirect()->route('index')
             ->with('success','Product created successfully');
     }
+
+    public function edit($id){
+        $product = Product::query()->find($id);
+        return view('admin.edit', compact('product'));
+    }
+
+    public function update(Request $request, $id){
+
+        $product = Product::query()->find($id);
+
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'price' => 'required',
+            'description' => 'required',
+            'slug' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:4070',
+        ]);
+
+        if($request->hasFile('image')){
+            if ($product->image && file_exists(public_path($product->image))) {
+                unlink(public_path($product->image));
+            }
+
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move(public_path('images'), $filename);
+
+            $validatedData['image'] = 'images/'. $filename;
+        } else {
+            $validatedData['image'] = null;
+        }
+        $product->update([
+            'name' => $validatedData['name'],
+            'price' => $validatedData['price'],
+            'description' => $validatedData['description'],
+            'slug' => $validatedData['slug'],
+            'image' => $validatedData['image'],
+        ]);
+        return redirect()->route('index')->with('success', 'Product updated successfully');
+    }
+
     public function destroy($id){
         $products = Product::query()->find($id);
+        if(File::exists($products->image)){
+            File::delete($products->image);
+        }
         $products->delete();
+
 
         return redirect()->route('index')->with('messsage','Product Deleted Successfully');
     }

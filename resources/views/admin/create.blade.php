@@ -10,6 +10,8 @@
                 <small class="text-danger">{{ $message }}</small>
             @enderror
         </div>
+
+
         <div class="mb-3">
             <label for="" class="form-label">Price</label>
             <input type="number" name="price" class="form-control">

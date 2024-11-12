@@ -29,6 +29,11 @@
                 <td>{{ $item->created_at }}</td>
                 <td>{{ $item->updated_at }}</td>
                 <td>
+                    <a href="{{ route('edit', $item->id) }}">
+                        edit
+                    </a>
+                </td>
+                <td>
                     <form action="{{ route('destroy', $item->id) }}" method="POST"
                          onsubmit="return confirm('Устгахдаа итгэлтэй байна уу?');">
                         @csrf
