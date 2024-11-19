@@ -10,6 +10,11 @@ Route::controller(PageContoller::class)->group(function () {
     Route::delete('/product/delete/{id}', 'destroy')->name('destroy');
     Route::get('/product/edit/{id}', 'edit')->name("edit");
     Route::put('/product/edit/{id}', 'update')->name("update");
+
+
+    Route::get('product/image/{id}', 'image')->name("image");
+    Route::post('product/image/{id}', 'imageStore')->name("imageStore");
+    Route::delete('product/image/{id}', 'imageDestroy')->name("imageDestroy");
 });
 
 Route::get('/', function (){

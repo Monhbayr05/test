@@ -13,6 +13,7 @@
             <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-10">Created at</th>
             <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-10">Updated at</th>
             <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-10">Action</th>
+            <th class="text-uppercase text-secondary text-xs font-weight-bolder opacity-10">Олон зураг оруулах</th>
         </tr>
         </thead>
         <tbody>
@@ -34,6 +35,11 @@
                     </a>
                 </td>
                 <td>
+                    <a href="{{ route('image', ['id' => $item->id]) }}" class="dropdown-item text-success p-2" data-toggle="tooltip">
+                        Зураг нэмэх
+                    </a>
+                </td>
+                <td>
                     <form action="{{ route('destroy', $item->id) }}" method="POST"
                          onsubmit="return confirm('Устгахдаа итгэлтэй байна уу?');">
                         @csrf
@@ -48,3 +54,13 @@
         </tbody>
     </table>
 @endsection
+<script>
+    // SweetAlert Test
+    Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Your work has been saved",
+        showConfirmButton: false,
+        timer: 1500
+    });
+</script>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Product;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -89,6 +90,45 @@ class PageContoller extends Controller
             'image' => $validatedData['image'],
         ]);
         return redirect()->route('index')->with('success', 'Product updated successfully');
+    }
+
+    public function image($id)
+    {
+        $product = Product::query()->findOrFail($id);
+        return view('admin.image', compact('product'));
+    }
+    public function imageStore(Request $request, $id){
+        $product = Product::query()->findOrFail($id);
+
+        if($request->hasFile('image')){
+            $uploadPath = 'uploads/products/images/';
+
+            $i = 1;
+            foreach ($request->file('image') as $imageFile) {
+                $extension = $imageFile->getClientOriginalExtension();
+                $filename = time() . $i++ . '.' . $extension;
+                $imageFile->move($uploadPath, $filename);
+                $finalImagePathName = $uploadPath . $filename;
+
+                $product->productImages()->create([
+                    'product_id' => $product->id,
+                    'image' => $finalImagePathName,
+                ]);
+            }
+        }
+        return redirect()->route('index')->with('success', 'Product updated successfully');
+    }
+    public function imageDestroy($id)
+    {
+        $image = ProductImage::query()->findOrFail($id);
+
+        if (File::exists($image->image)) {
+            File::delete($image->image);
+        }
+
+        $image->delete();
+
+        return redirect()->back()->with('delete', 'Зураг амжилттай устлаа.');
     }
 
     public function destroy($id){
